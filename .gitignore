@@ -142,3 +142,5 @@ terraform.tfvars
 /test/version_tmp
 /tmp
 vendor
+
+node_modules

@@ -3,12 +3,12 @@ variable "environment" {
   description = "The name of an environment"
 }
 
-variable "stack" {
+variable "stack_name" {
   type        = string
   description = "The name of a stack"
 }
 
-variable "project" {
+variable "project_name" {
   type        = string
   description = "The name of a project"
 }

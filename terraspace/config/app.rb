@@ -1,5 +1,7 @@
 # Docs: https://terraspace.cloud/docs/config/reference/
 Terraspace.configure do |config|
+  config.allow.envs = ["dev"]
+  config.build.clean_cache = true
   # config.logger.level = :info
 
   # To enable Terraspace Cloud set config.cloud.org
