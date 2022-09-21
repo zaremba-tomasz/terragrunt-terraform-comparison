@@ -1,0 +1,25 @@
+---
+appsync:
+  source: terraform-aws-modules/appsync/aws
+  version: 1.5.2
+  type: registry
+  url: https://github.com/terraform-aws-modules/terraform-aws-appsync
+  sha: cd61d29eb3b6d4b7ce880e4fd3e47241e021d5af
+dynamodb-table:
+  source: terraform-aws-modules/dynamodb-table/aws
+  version: 3.1.1
+  type: registry
+  url: https://github.com/terraform-aws-modules/terraform-aws-dynamodb-table
+  sha: deb1159041d3fcc74fd6f6059f8beb5f7064bb4b
+eventbridge:
+  source: terraform-aws-modules/eventbridge/aws
+  version: 1.15.0
+  type: registry
+  url: https://github.com/terraform-aws-modules/terraform-aws-eventbridge
+  sha: dd979d421678d0371962fb8c03966492e12a4456
+lambda:
+  source: terraform-aws-modules/lambda/aws
+  version: 4.0.2
+  type: registry
+  url: https://github.com/terraform-aws-modules/terraform-aws-lambda
+  sha: 8f99aaaf1af1155d71b49a377727af480af03df6
