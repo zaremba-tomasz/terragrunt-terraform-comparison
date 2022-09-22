@@ -1,0 +1,18 @@
+{
+  "name": "store-post",
+  "version": "1.0.0",
+  "description": "A naive lambda storing obtained event in DynamoDB table",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "tomasz.zaremba@nearform.com",
+  "license": "ISC",
+  "dependencies": {
+    "date-format": "^4.0.13",
+    "randomstring": "^1.2.2"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.1220.0"
+  }
+}
