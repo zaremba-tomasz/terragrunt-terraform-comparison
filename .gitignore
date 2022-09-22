@@ -143,4 +143,7 @@ terraform.tfvars
 /tmp
 vendor
 
+### Terragrunt ignore
+.terragrunt-cache
+
 node_modules
