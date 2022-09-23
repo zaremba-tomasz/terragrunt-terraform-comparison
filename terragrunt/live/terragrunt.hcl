@@ -12,3 +12,14 @@ remote_state {
     dynamodb_table = "terraform_locks"
   }
 }
+
+terraform {
+  after_hook "Infracost analysis" {
+    commands     = ["plan"]
+    execute      = [
+      "${get_repo_root()}/${get_path_from_repo_root()}/${path_relative_from_include()}/_scripts/analyze-costs.sh",
+      "${get_repo_root()}/${get_path_from_repo_root()}"
+    ]
+    run_on_error = false
+  }
+}

@@ -1,0 +1,34 @@
+# You can use this file to define resource usage estimates for Infracost to use when calculating
+# the cost of usage-based resource, such as AWS S3 or Lambda.
+# `infracost breakdown --usage-file infracost-usage.yml [other flags]`
+# See https://infracost.io/usage-file/ for docs
+version: 0.1
+resource_usage:
+  ##
+  ## The following usage values are all commented-out, you can uncomment resources and customize as needed.
+  ##
+  module.event_bridge.aws_cloudwatch_event_bus.this[0]:
+    monthly_custom_events: 0 # Monthly custom events published. Each 64 KB chunk of payload is billed as 1 event.
+    monthly_third_party_events: 0 # Monthly third-party and cross-account events published. Each 64 KB chunk of payload is billed as 1 event.
+    monthly_archive_processing_gb: 0.0 # Monthly archive event processing in GB.
+    archive_storage_gb: 0.0 # Archive storage used for event replay in GB.
+    monthly_schema_discovery_events: 0 # Monthly events ingested for schema discovery. Each 8 KB chunk of payload is billed as 1 event.
+  module.posts_dynamodb_table.aws_dynamodb_table.this[0]:
+    monthly_write_request_units: 0 # Monthly write request units in (used for on-demand DynamoDB).
+    monthly_read_request_units: 0 # Monthly read request units in (used for on-demand DynamoDB).
+    storage_gb: 0 # Total storage for tables in GB.
+    pitr_backup_storage_gb: 0 # Total storage for Point-In-Time Recovery (PITR) backups in GB.
+    on_demand_backup_storage_gb: 0 # Total storage for on-demand backups in GB.
+    monthly_data_restored_gb: 0 # Monthly size of restored data in GB.
+    monthly_streams_read_request_units: 0 # Monthly streams read request units.
+  module.store_post_lambda.aws_cloudwatch_log_group.lambda[0]:
+    storage_gb: 0.0 # Total data stored by CloudWatch logs in GB.
+    monthly_data_ingested_gb: 0.0 # Monthly data ingested by CloudWatch logs in GB.
+    monthly_data_scanned_gb: 0.0 # Monthly data scanned by CloudWatch logs insights in GB.
+  module.store_post_lambda.aws_lambda_function.this[0]:
+    monthly_requests: 200000 # Monthly requests to the Lambda function.
+    request_duration_ms: 50 # Average duration of each request in milliseconds.
+  aws_ssm_parameter.appsync_api_key:
+    api_throughput_limit: standard # SSM Parameter Throughput limit, can be: standard, advanced, higher.
+    monthly_api_interactions: 0 # Monthly API interactions.
+    parameter_storage_hrs: 0 # Number of hours in the month parameters will be stored for.

@@ -114,6 +114,7 @@ terraform.tfvars
 
 .terraspace-cache
 *.plan
+*.plan.json
 
 # OS X files
 .history
