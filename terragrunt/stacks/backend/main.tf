@@ -126,10 +126,18 @@ module "appsync" {
   }
 
   resolvers = {
-    "Query.singlePost" = {
+    "Query.post" = {
       data_source       = "DynamoDB"
       request_template  = file("${path.module}/resources/appsync/mapping-templates/query-single-post-request-template.json")
       response_template = "$util.toJson($context.result)"
     }
   }
+}
+
+resource "aws_ssm_parameter" "appsync_api_key" {
+  name        = "/${var.environment}/${local.stack_name}/appsync/api_key"
+  description = "The API key required to authorize against AppSync API"
+  type        = "SecureString"
+  value       = module.appsync.appsync_api_key_key["default"]
+  tags        = module.common_tags.tags
 }

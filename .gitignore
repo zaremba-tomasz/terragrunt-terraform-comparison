@@ -146,4 +146,12 @@ vendor
 ### Terragrunt ignore
 .terragrunt-cache
 
+### Terratest ignore
+**/modules/**/.terraform.lock.hcl
+**/stacks/**/.terraform.lock.hcl
+
+### NodeJS ignore
 node_modules
+
+### Rest
+*.xmind
