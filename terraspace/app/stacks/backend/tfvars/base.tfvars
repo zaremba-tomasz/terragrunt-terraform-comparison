@@ -1,1 +1,1 @@
-project_name="terraspace-upskilling"
+tags = <%= output('common-tags.tags', mock: {}) %>

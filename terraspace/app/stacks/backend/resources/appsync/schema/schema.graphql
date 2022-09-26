@@ -4,7 +4,7 @@ type Post {
 }
 
 type Query {
-    singlePost(id: ID!): Post
+    post(id: ID!): Post
 }
 
 schema {

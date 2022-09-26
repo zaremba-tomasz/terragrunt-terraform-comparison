@@ -2,17 +2,12 @@ locals {
   stack_name                = "backend"
   resources_name_prefix     = "${var.environment}-${local.stack_name}"
   posts_dynamodb_table_name = "${local.resources_name_prefix}-posts" // this one is needed because of appsync modules issues with dynamic binding
+  tags = merge({
+    Stack = "backend"
+  }, var.tags)
 }
 
 data "aws_region" "current" {}
-
-module "common_tags" {
-  source = "../../modules/common-tags"
-
-  environment  = var.environment
-  project_name = var.project_name
-  stack_name   = local.stack_name
-}
 
 module "posts_dynamodb_table" {
   source = "../../modules/dynamodb-table"
@@ -20,7 +15,7 @@ module "posts_dynamodb_table" {
   name         = local.posts_dynamodb_table_name
   hash_key     = "id"
   billing_mode = "PAY_PER_REQUEST"
-  tags         = module.common_tags.tags
+  tags         = local.tags
 
   attributes = [
     {
@@ -37,7 +32,7 @@ module "store_post_lambda_package" {
   create_package  = true
   runtime         = "nodejs14.x"
   source_path     = "${path.module}/resources/lambda/store-post"
-  tags            = module.common_tags.tags
+  tags            = local.tags
 }
 
 module "store_post_lambda" {
@@ -51,7 +46,7 @@ module "store_post_lambda" {
   handler                  = "index.handler"
   runtime                  = "nodejs14.x"
   attach_policy_statements = true
-  tags                     = module.common_tags.tags
+  tags                     = local.tags
 
   allowed_triggers = {
     EventBridgeRule = {
@@ -81,7 +76,7 @@ module "event_bridge" {
   bus_name             = "${local.resources_name_prefix}-bus"
   attach_lambda_policy = true
   lambda_target_arns   = [module.store_post_lambda.lambda_function_arn]
-  tags                 = module.common_tags.tags
+  tags                 = local.tags
 
   rules = {
     StorePosts = {
@@ -106,7 +101,7 @@ module "appsync" {
 
   name   = "${local.resources_name_prefix}-api"
   schema = file("${path.module}/resources/appsync/schema/schema.graphql")
-  tags   = module.common_tags.tags
+  tags   = local.tags
 
   api_keys = {
     default = null
@@ -121,10 +116,18 @@ module "appsync" {
   }
 
   resolvers = {
-    "Query.singlePost" = {
+    "Query.post" = {
       data_source       = "DynamoDB"
       request_template  = file("${path.module}/resources/appsync/mapping-templates/query-single-post-request-template.json")
       response_template = "$util.toJson($context.result)"
     }
   }
+}
+
+resource "aws_ssm_parameter" "appsync_api_key" {
+  name        = "/${var.environment}/${local.stack_name}/appsync/api_key"
+  description = "The API key required to authorize against AppSync API"
+  type        = "SecureString"
+  value       = module.appsync.appsync_api_key_key["default"]
+  tags        = local.tags
 }

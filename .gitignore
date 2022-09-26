@@ -143,6 +143,7 @@ terraform.tfvars
 /test/version_tmp
 /tmp
 vendor
+*.log
 
 ### Terragrunt ignore
 .terragrunt-cache

@@ -20,7 +20,6 @@ describe "common-tags module" do
     expect(terraspace.output("common-tags", "tags")).to eq({
       "Environment" => "test-environment",
       "ManagedBy" => "terraform",
-      "Stack" => "test-stack",
       "Project" => "test-project",
       "Organisation" => "NearForm"
     })
