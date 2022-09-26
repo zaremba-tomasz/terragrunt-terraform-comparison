@@ -1,13 +1,12 @@
 package test
 
 import (
-	"testing"
-
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
-func TestCommonTagsModule(t *testing.T) {
+func TestCommonTagsStack(t *testing.T) {
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: "../common-tags",
 		Vars: map[string]interface{}{

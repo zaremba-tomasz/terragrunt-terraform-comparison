@@ -5,7 +5,3 @@ locals {
 terraform {
   source = local.source_base_url
 }
-
-inputs = {
-  project_name = "terragrunt-upskilling"
-}

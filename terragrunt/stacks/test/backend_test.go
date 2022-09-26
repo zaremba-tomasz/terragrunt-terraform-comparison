@@ -21,8 +21,10 @@ func TestBackendStack(t *testing.T) {
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: "../backend",
 		Vars: map[string]interface{}{
-			"environment":  "test",
-			"project_name": "test-project-name",
+			"environment": "test",
+			"tags": map[string]string{
+				"ManagedBy": "TerragruntTest",
+			},
 		},
 	})
 

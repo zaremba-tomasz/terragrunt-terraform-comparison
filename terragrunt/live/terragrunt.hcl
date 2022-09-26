@@ -23,3 +23,7 @@ terraform {
     run_on_error = false
   }
 }
+
+inputs = {
+  project_name = "terragrunt-upskilling"
+}

@@ -12,6 +12,16 @@ locals {
   environment_name = local.environment_vars.locals.environment
 }
 
+dependency "common-tags" {
+  config_path = "../common-tags"
+
+  mock_outputs_allowed_terraform_commands = ["validate", "plan"]
+  mock_outputs = {
+    tags = {}
+  }
+}
+
 inputs = {
   environment = local.environment_name
+  tags        = dependency.common-tags.outputs.tags
 }
