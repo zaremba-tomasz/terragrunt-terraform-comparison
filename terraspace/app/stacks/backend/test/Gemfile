@@ -1,0 +1,11 @@
+source "https://rubygems.org"
+
+gem "terraspace", '~> 2'
+gem "rspec-terraspace"
+gem "terraspace_plugin_aws"
+
+gem "aws-sdk-ssm", "~> 1.139"
+
+gem "aws-sdk-eventbridge", "~> 1.38"
+
+gem "graphql-client", "~> 0.18.0"
